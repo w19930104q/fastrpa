@@ -15,6 +15,19 @@ class ElementTimeoutException(Exception):
         super().__init__(self.message.format(xpath, timeout))
 
 
+class StaleElementException(Exception):
+    message = (
+        'Element [{}] went stale during [{}] '
+        'and could not be relocated after {} attempts!'
+    )
+
+    def __init__(self, xpath: str, phase: str, attempts: int):
+        self.xpath = xpath
+        self.phase = phase
+        self.attempts = attempts
+        super().__init__(self.message.format(xpath, phase, attempts))
+
+
 class ElementNotCompatibleException(Exception):
     message = 'Element [{}] is not compatible with {}!'
 
